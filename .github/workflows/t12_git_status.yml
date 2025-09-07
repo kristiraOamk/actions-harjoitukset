@@ -1,0 +1,20 @@
+name: T12 - Git status
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch: {}
+
+jobs:
+  show-status:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Modify / create files
+        run: |
+          echo "Line $(date -u)" >> log.txt
+          cp README.md README_CPY || true
+
+      - name: Git status
+        run: git status --porcelain

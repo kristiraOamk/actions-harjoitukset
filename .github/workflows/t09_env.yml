@@ -1,0 +1,21 @@
+name: T09 - Env vars
+
+on:
+  push:
+    branches: [ main ]
+
+env:
+  MY_NAME: "Student"
+  COURSE:  "DevOps 101"
+
+jobs:
+  show-env:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print custom env
+        run: |
+          echo "Hello, $MY_NAME from $COURSE"
+      - name: Print built-ins
+        run: |
+          echo "Repo: $GITHUB_REPOSITORY"
+          echo "Ref:  $GITHUB_REF"

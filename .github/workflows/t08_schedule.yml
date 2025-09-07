@@ -1,0 +1,12 @@
+name: T08 - Schedule
+
+on:
+  schedule:
+    - cron: '0 8 * * *'   # joka päivä klo 08:00 UTC
+  workflow_dispatch: {}    # voit ajaa heti käsin
+
+jobs:
+  daily:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Scheduled or manual run at $(date -u)"

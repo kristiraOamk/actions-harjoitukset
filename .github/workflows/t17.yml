@@ -1,0 +1,32 @@
+name: T17 - Job dependencies
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch: {}
+
+jobs:
+  job1:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create data
+        run: |
+          echo "Interim data at $(date -u)" > data.txt
+      - name: Upload data
+        uses: actions/upload-artifact@v4
+        with:
+          name: data
+          path: data.txt
+
+  job2:
+    runs-on: ubuntu-latest
+    needs: job1
+    steps:
+      - name: Download data
+        uses: actions/download-artifact@v4
+        with:
+          name: data
+      - name: Consume data
+        run: |
+          echo "== data.txt =="
+          cat data.txt
