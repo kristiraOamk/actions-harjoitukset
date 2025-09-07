@@ -1,0 +1,34 @@
+name: T15 - Artifact pipeline
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch: {}
+
+jobs:
+  produce:
+    runs-on: ubuntu-latest
+    outputs:
+      artifact-name: build-report
+    steps:
+      - uses: actions/checkout@v4
+      - name: Create report
+        run: echo "Produced at $(date -u)" > report.txt
+      - name: Upload
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-report
+          path: report.txt
+
+  consume:
+    runs-on: ubuntu-latest
+    needs: produce
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: build-report
+      - name: Show report
+        run: |
+          echo "== report.txt =="
+          cat report.txt
