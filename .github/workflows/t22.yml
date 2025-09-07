@@ -1,0 +1,14 @@
+name: T22 - Timeout
+
+on:
+  workflow_dispatch: {}
+
+jobs:
+  timeboxed:
+    runs-on: ubuntu-latest
+    timeout-minutes: 2      # koko jobin aikaraja 2 min
+    steps:
+      - name: Sleep longer than timeout
+        run: |
+          echo "Sleeping 5 minutes..."
+          sleep 300
