@@ -1,0 +1,23 @@
+name: T21 - Continue on error
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch: {}
+
+jobs:
+  demo:
+    runs-on: ubuntu-latest
+    steps:
+      - name: This fails but does not stop the job
+        continue-on-error: true
+        run: |
+          echo "About to fail on purpose"
+          exit 42
+
+      - name: This still runs
+        run: echo "Continuing after failure ✔"
+
+      - name: Gate next action on overall job success
+        if: ${{ success() }}
+        run: echo "This shows only if all previous non-continued steps succeeded"
