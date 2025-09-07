@@ -1,0 +1,12 @@
+name: T06 - Echo commit message
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  echo-msg:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print commit message
+        run: echo "Message: ${{ github.event.head_commit.message }}"
