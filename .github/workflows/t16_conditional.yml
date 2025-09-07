@@ -1,0 +1,17 @@
+name: T16 - Conditional step
+
+on:
+  push:
+    branches: [ main, feature1 ]
+  workflow_dispatch: {}
+
+jobs:
+  demo:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Always run
+        run: echo "This runs on both branches"
+
+      - name: Only on main
+        if: github.ref_name == 'main'
+        run: echo "This runs ONLY on main (ref_name = ${{ github.ref_name }})"
