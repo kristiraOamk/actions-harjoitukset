@@ -2,11 +2,12 @@ name: T18 - Reusable caller
 
 on:
   push:
-    branches: [ main ]
+    branches:
+      - main
   workflow_dispatch: {}
 
 jobs:
-  call-it:
+  call-worker:
     uses: ./.github/workflows/t18_reusable_worker.yml
     with:
       message: "Hello from caller!"
