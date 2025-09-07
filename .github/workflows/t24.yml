@@ -1,0 +1,21 @@
+name: T24 - PR diff
+
+on:
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  list-changes:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Show changed files (base..head)
+        run: |
+          echo "Base: ${{ github.event.pull_request.base.sha }}"
+          echo "Head: ${{ github.event.pull_request.head.sha }}"
+          git diff --name-only \
+            ${{ github.event.pull_request.base.sha }} \
+            ${{ github.event.pull_request.head.sha }}
