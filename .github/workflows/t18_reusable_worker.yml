@@ -1,0 +1,14 @@
+name: T18 - Reusable worker
+
+on:
+  workflow_call:
+    inputs:
+      message:
+        required: true
+        type: string
+
+jobs:
+  say:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Reusable says: ${{ inputs.message }}"
