@@ -1,0 +1,27 @@
+name: T20 - Fail intentionally
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch: {}
+
+jobs:
+  demo-fail:
+    runs-on: ubuntu-latest
+    steps:
+      - name: This will fail
+        run: exit 1
+
+      - name: This never runs (previous failed)
+        run: echo "You won't see this"
+        if: ${{ success() }}   # vain jos edellinen onnistui
+
+  demo-continue:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Fail but continue
+        continue-on-error: true
+        run: exit 2
+
+      - name: Still running after failure
+        run: echo "Job continues despite previous failure"
