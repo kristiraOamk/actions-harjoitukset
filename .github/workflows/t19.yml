@@ -1,0 +1,23 @@
+name: T19 - Matrix artifacts
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch: {}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        flavor: [alpha, beta, gamma]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Produce file
+        run: |
+          echo "Flavor=${{ matrix.flavor }} at $(date -u)" > output_${{ matrix.flavor }}.txt
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: output-${{ matrix.flavor }}
+          path: output_${{ matrix.flavor }}.txt
